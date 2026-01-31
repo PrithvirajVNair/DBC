@@ -5,19 +5,16 @@ import { useEffect } from 'react';
 
 const Home = () => {
   const [email, setEmail] = useState("")
-  const [breachData, setBreachData] = useState("")
-  const [breachDetails, setBreachDetails] = useState("")
-  console.log(email);
+  const [breachData, setBreachData] = useState({})
+  const [breachDetails, setBreachDetails] = useState({})
 
   const handleCheck = async () => {
     const result = await getBreachAPI(email)
-    console.log(result);
     if (result.status == 200) {
       setBreachData(result.data)
-      setBreachDetails(result.data.analytics.ExposedBreaches.breaches_details)
+      setBreachDetails(result?.data?.analytics?.ExposedBreaches?.breaches_details)
     }
   }
-  console.log(breachDetails);
 
   useEffect(() => {
     setBreachData("")
@@ -39,7 +36,7 @@ const Home = () => {
               <ul className='flex flex-col gap-3 justify-center items-center mt-5'>
                 {
                   breachDetails?.map((items, index) => (
-                    <li href='' key={index} className='text-lg text-center text-red-400 list-disc'>{items.breach}</li>
+                    <li key={index} className='text-lg text-center text-red-400 list-disc'>{items.breach}</li>
                   ))
                 }
               </ul>
@@ -52,7 +49,7 @@ const Home = () => {
           breachData.found &&
           (
             breachDetails?.map((items, index) => (
-              <div className='bg-white text-black p-10 w-full rounded'>
+              <div key={index} className='bg-white text-black p-10 w-full rounded'>
                 <div className=''>
                   <h2 className='text-2xl font-semibold text-center'>{items.breach}</h2>
                   <div className='flex justify-center items-center'><img width={"150px"} src={items.logo} alt={items.breach} /></div>
