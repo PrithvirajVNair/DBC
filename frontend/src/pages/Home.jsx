@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <div className='min-h-screen bg-black text-white flex justify-center items-center py-20 px-20'>
       <div className='flex flex-col justify-center items-center gap-5 w-full'>
-        <h1 className='text-3xl text-blue-400'>Check For Data Breach</h1>
+        <h1 className='text-3xl text-blue-400'>Check If Your Email Was Exposed in a Data Breach</h1>
         <div className='flex w-full'>
           <input value={email} onChange={e => setEmail(e.target.value)} className='bg-white text-black px-2 rounded-l w-full h-15 text-2xl' placeholder='Enter Your Email!' type="text" />
           <button onClick={handleCheck} className='bg-blue-400 px-2 py-1 rounded-r cursor-pointer hover:bg-blue-500 w-20'>Check</button>
