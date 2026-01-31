@@ -18,13 +18,13 @@ const Home = () => {
     }
   }
   console.log(breachDetails);
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     setBreachData("")
-  },[])
+  }, [])
 
   return (
-    <div className='min-h-screen bg-black text-white flex justify-center items-center pt-20 px-20'>
+    <div className='min-h-screen bg-black text-white flex justify-center items-center py-20 px-20'>
       <div className='flex flex-col justify-center items-center gap-5 w-full'>
         <h1 className='text-3xl text-blue-400'>Check For Data Breach</h1>
         <div className='flex w-full'>
@@ -33,46 +33,58 @@ const Home = () => {
         </div>
         {
           breachData &&
-          (breachData.found?
-          <div className='border w-full p-10 rounded border-red-400 bg-red-400/10'>
-          <p className='text-xl text-center'>Your Email Appeared in <span className='text-red-400'>{breachDetails.length}</span> Breach</p>
-          <ul className='flex flex-col gap-3 justify-center items-center mt-5'>
-              {
-                breachDetails?.map((items,index)=>(
-                  <li href='' key={index} className='text-lg text-center text-red-400 list-disc'>{items.breach}</li>
-                ))
+          (breachData.found ?
+            <div className='border w-full p-10 rounded border-red-400 bg-red-400/10'>
+              <p className='text-xl text-center'>Your Email Appeared in <span className='text-red-400'>{breachDetails.length}</span> Breach</p>
+              <ul className='flex flex-col gap-3 justify-center items-center mt-5'>
+                {
+                  breachDetails?.map((items, index) => (
+                    <li href='' key={index} className='text-lg text-center text-red-400 list-disc'>{items.breach}</li>
+                  ))
                 }
-            </ul>
-        </div>:
-        <div className='border w-full p-10 rounded border-green-400 bg-green-400/10'>
-          <p className='text-xl text-center'>Nice! No Breaches Found</p>
-        </div>)
+              </ul>
+            </div> :
+            <div className='border w-full p-10 rounded border-green-400 bg-green-400/10'>
+              <p className='text-xl text-center'>Nice! No Breaches Found</p>
+            </div>)
         }
-        <div className='bg-white text-black p-10 w-full rounded'>
-            <div className=''>
-              <h2 className='text-2xl font-semibold text-center'>Breach Name</h2>
-              <div className='grid grid-cols-2'>
-                <div className='p-5'><p className='border text-center p-5 rounded bg-blue-400/20 text-blue-400 text-lg font-semibold'>Exposed Date : </p></div>
-                <div className='p-5'><p className='border text-center p-5 rounded bg-blue-400/20 text-blue-400 text-lg font-semibold'>Industry : </p></div>
-              </div>
-              <p className='text-center mt-5 bg-blue-400/20 rounded'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse nisi aperiam maiores voluptates tempore soluta, quidem laudantium eius rerum minus et rem asperiores maxime aliquam nobis, architecto odit, numquam autem!</p>
-              <div>
-                <h3 className='text-center text-blue-400 py-5 text-lg'>Data Exposed</h3>
-                <div className='flex justify-center items-center flex-wrap gap-3'>
-                      <p className='bg-blue-400 rounded px-2 text-white'>s</p>
+        {
+          breachData.found &&
+          (
+            breachDetails?.map((items, index) => (
+              <div className='bg-white text-black p-10 w-full rounded'>
+                <div className=''>
+                  <h2 className='text-2xl font-semibold text-center'>{items.breach}</h2>
+                  <div className='flex justify-center items-center'><img width={"150px"} src={items.logo} alt={items.breach} /></div>
+                  <div className='grid grid-cols-2'>
+                    <div className='p-5'><p className='text-center p-5 rounded bg-blue-400/20 text-blue-400 text-lg font-semibold'>Exposed Date : {items.xposed_date}</p></div>
+                    <div className='p-5'><p className='text-center p-5 rounded bg-blue-400/20 text-blue-400 text-lg font-semibold'>Industry : {items.industry}</p></div>
+                  </div>
+                  <p className='text-center mt-5 bg-blue-400/20 rounded p-5'>{items.details}</p>
+                  <div>
+                    <h3 className='text-center text-blue-400 py-5 text-lg'>Data Exposed</h3>
+                    <div className='flex justify-center items-center flex-wrap gap-3'>
+                      {
+                        items.xposed_data.split(";").map((data,index)=>(
+                          <p key={index} className='bg-blue-400 rounded px-2 text-white'>{data}</p>
+                        ))
+                        }
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className='text-center text-blue-400 py-5 text-lg'>Breach Details</h3>
+                    <div className='grid grid-cols-2 w-full mb-5'>
+                      <p className='text-center'>Domain : {items.domain}</p>
+                      <p className='text-center'>Password Risk : {items.password_risk}</p>
+                      <p className='text-center'>Searchable : {items.searchable}</p>
+                      <p className='text-center'>Verified : {items.verified}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div>
-                <h3 className='text-center text-blue-400 py-5 text-lg'>Breach Details</h3>
-                <div className='grid grid-cols-2 w-full mb-5'>
-                    <p className='text-center'>Domain : </p>
-                    <p className='text-center'>Password Risk : </p>
-                    <p className='text-center'>Searchable : </p>
-                    <p className='text-center'>Verified : </p>    
-                </div>
-              </div>
-            </div>
-        </div>
+            ))
+          )
+          }
       </div>
     </div>
   )
